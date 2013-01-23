@@ -34,6 +34,6 @@ class Player(object):
                 self.y += 3
                 self.x = snap(self.x)
 
-    def draw(self, windowSurface, xoff, yoff):
+    def draw(self, windowSurface, xoff=0, yoff=0):
         windowSurface.blit(assets.people.player_stand,\
                                (self.x+xoff, self.y+yoff))

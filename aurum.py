@@ -19,7 +19,7 @@ p = player.Player(l.start_x,l.start_y)
 while True:
     windowSurface.fill(bgColor)
     l.draw(windowSurface)
-    p.draw(windowSurface, 0, 0)
+    p.draw(windowSurface)
     
     keys = pygame.key.get_pressed()
     

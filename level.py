@@ -126,7 +126,8 @@ class Level(object):
                 .is_climbable()
         
         
-    def draw(self, windowSurface):
+    def draw(self, windowSurface, xoff=0, yoff=0):
         for x in xrange(self.width):
             for y in xrange(self.height):
-                self.tiles[y][x].draw(windowSurface, x*TILE_SIZE, y*TILE_SIZE)
+                self.tiles[y][x].draw(windowSurface,\
+                                          x*TILE_SIZE+xoff, y*TILE_SIZE+yoff)
