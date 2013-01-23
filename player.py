@@ -27,6 +27,11 @@ class Player(object):
                     level.person_collides(snap(self.x),self.y-3):
                 self.y -= 3
                 self.x = snap(self.x)
+        elif direction is "d":
+            if level.person_climbs(self.x,self.y) and not\
+                    level.person_collides(snap(self.x),self.y+3):
+                self.y += 3
+                self.x = snap(self.x)
     
     def update(self, level):
         if level.person_floats(self.x, self.y):

@@ -39,6 +39,8 @@ while True:
         p.move(l,"r")
     if keys[K_UP]:
         p.move(l,"u")
+    if keys[K_DOWN]:
+        p.move(l,"d")
     
     p.update(l)
     pygame.display.update()
