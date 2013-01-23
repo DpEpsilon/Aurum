@@ -2,10 +2,12 @@ import pygame, sys
 from pygame.locals import *
 import level, player
 
+window_width, window_height = 640, 480
+
 pygame.init()
 pygame.display.set_caption("Aurum")
 fpsClock = pygame.time.Clock()
-windowSurface = pygame.display.set_mode((640, 480))
+windowSurface = pygame.display.set_mode((window_width, window_height))
 
 import assets
 
@@ -13,13 +15,16 @@ bgColor = pygame.Color(0,0,0)
 
 l = level.Level("level.lvl")
 
+x_corner = (window_width - l.width * level.TILE_SIZE)/2
+y_corner = (window_height - l.height * level.TILE_SIZE)/2
+
 # p stands for Peter, not player
 p = player.Player(l.start_x,l.start_y)
 
 while True:
     windowSurface.fill(bgColor)
-    l.draw(windowSurface)
-    p.draw(windowSurface)
+    l.draw(windowSurface, x_corner, y_corner)
+    p.draw(windowSurface, x_corner, y_corner)
     
     keys = pygame.key.get_pressed()
     
