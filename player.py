@@ -28,7 +28,7 @@ class Player(object):
                 self.y -= 3
                 self.x = snap(self.x)
         elif direction is "d":
-            if level.person_climbs(self.x,self.y) and not\
+            if level.person_climbs(self.x,self.y,False) and not\
                     level.person_collides(snap(self.x),self.y+3):
                 self.y += 3
                 self.x = snap(self.x)

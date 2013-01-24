@@ -116,13 +116,19 @@ class Level(object):
         else:
             return not self.tiles[y/TILE_SIZE+1][x/TILE_SIZE+1].is_weight_supporting()
 
-    def person_climbs(self,x,y):
+    def person_climbs(self,x,y,up=True):
         assert(not self.person_collides(x,y))
+
+        if not up and y >= TILE_SIZE * (self.height-1):
+            return False
+        
+        shift = 1 if up else 0
+        
         if x % TILE_SIZE < TILE_SIZE/2:
-            return self.tiles[(y+TILE_SIZE-1)/TILE_SIZE][x/TILE_SIZE]\
+            return self.tiles[(y+TILE_SIZE-shift)/TILE_SIZE][x/TILE_SIZE]\
                 .is_climbable()
         else:
-            return self.tiles[(y+TILE_SIZE-1)/TILE_SIZE][x/TILE_SIZE+1]\
+            return self.tiles[(y+TILE_SIZE-shift)/TILE_SIZE][x/TILE_SIZE+1]\
                 .is_climbable()
         
         
