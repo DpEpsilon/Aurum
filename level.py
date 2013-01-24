@@ -109,7 +109,7 @@ class Level(object):
                 not self.tiles[(y+TILE_SIZE-1)/TILE_SIZE][(x+TILE_SIZE/2)/TILE_SIZE]\
                 .is_climbable():
             return True
-        if y == (self.width - 1) * TILE_SIZE:
+        if y == (self.height - 1) * TILE_SIZE:
             return False
         if x % TILE_SIZE < TILE_SIZE/2:
             return not self.tiles[y/TILE_SIZE+1][x/TILE_SIZE].is_weight_supporting()
