@@ -96,9 +96,9 @@ class Level(object):
                 self.tiles[y/TILE_SIZE+1][x/TILE_SIZE].is_solid():
             return True
         if x % TILE_SIZE > 0 and y % TILE_SIZE > 0 and\
-                self.tiles[y/TILE_SIZE+1][x/TILE_SIZE].is_solid():
+                self.tiles[y/TILE_SIZE+1][x/TILE_SIZE+1].is_solid():
             return True
-            
+        
         return False
     
     
