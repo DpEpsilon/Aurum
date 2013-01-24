@@ -130,7 +130,18 @@ class Level(object):
         else:
             return self.tiles[(y+TILE_SIZE-shift)/TILE_SIZE][x/TILE_SIZE+1]\
                 .is_climbable()
+
+
+    def zap(self,x,y,left):
+        assert(not self.person_collides(x,y))
+        assert(x%TILE_SIZE == 0)
+        assert(y%TILE_SIZE == 0)
         
+        x_tile = x/TILE_SIZE + (-1 if left else 1)
+        y_tile = y/TILE_SIZE + 1
+
+        if x_tile >= 0 and x_tile < self.width and y_tile < self.height:
+            self.tiles[y_tile][x_tile].zap()
         
     def draw(self, windowSurface, xoff=0, yoff=0):
         for x in xrange(self.width):

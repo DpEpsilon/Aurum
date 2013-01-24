@@ -14,6 +14,7 @@ class Player(object):
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.dead = False
 
     def move(self, level, direction):
         if direction is "l":
@@ -32,8 +33,19 @@ class Player(object):
                     level.person_collides(snap(self.x),self.y+3):
                 self.y += 3
                 self.x = snap(self.x)
-    
+
+    def zap(self, level, left):
+        if self.y % PLAYER_SIZE == 0 and\
+                not level.person_collides(snap(self.x), self.y):
+            self.x = snap(self.x)
+            level.zap(self.x,self.y,left)
+                
     def update(self, level):
+        if level.person_collides(self.x, self.y):
+            print "HUEH, ur dead"
+            self.dead = True
+            return
+        
         if level.person_floats(self.x, self.y):
             if not level.person_collides(snap(self.x), self.y+3):
                 self.y += 3

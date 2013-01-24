@@ -41,7 +41,11 @@ while True:
         p.move(l,"u")
     if keys[K_DOWN]:
         p.move(l,"d")
-    
+    if keys[K_z]:
+        p.zap(l,True)
+    if keys[K_x]:
+        p.zap(l,False)
+        
     p.update(l)
     pygame.display.update()
     fpsClock.tick(30)
