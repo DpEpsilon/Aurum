@@ -7,13 +7,19 @@ SOLIDS = '#='
 LADDER = '^'
 WEIGHT_SUPPORTING = '#=^'
 PLAYER_START = '$'
+GOLD = 'g'
 
 TILE_SIZE = 24
 
 class Tile(object):
     def __init__(self, character):
-        self.character = character
         self.zap_time = 0.0
+        self.is_gold = character in GOLD
+        
+        if character in GOLD:
+            self.character = '.'
+        else:
+            self.character = character
 
     def zap(self):
         t = time.time()
@@ -41,6 +47,13 @@ class Tile(object):
 
     def is_player_start(self):
         return self.character in PLAYER_START
+
+    def take_gold(self):
+        if self.is_gold:
+            self.is_gold = False
+            return True
+        else:
+            return False
     
     def draw(self,windowSurface,x,y):
         if not self.is_zapped():
