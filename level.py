@@ -5,10 +5,12 @@ ZAP_TIMEOUT = 10.0
 ZAPPABLES = '#'
 WEIGHT_SUPPORTING = '#='
 LADDER = '^'
-APPEARING_LADDER = '!'
 PLAYER_START = '$'
 GOLD = 'g'
 EMPTY = '.'
+
+APPEARING_LADDER = '!'
+EXIT = 'E'
 
 TILE_SIZE = 24
 
@@ -47,9 +49,9 @@ class Tile(object):
         return self.character in WEIGHT_SUPPORTING\
             and not self.is_zapped()
 
-    def is_weight_supporting(self):
+    def is_weight_supporting(self, got_all_gold=False):
         return (self.character in WEIGHT_SUPPORTING and\
-            not self.is_zapped()) or self.is_climbable()
+            not self.is_zapped()) or self.is_climbable(got_all_gold)
 
     def is_climbable(self, got_all_gold=False):
         return self.character in LADDER or\
@@ -67,8 +69,11 @@ class Tile(object):
             return True
         else:
             return False
-    
-    def draw(self,windowSurface,x,y):
+
+    def is_exit(self, got_all_gold):
+        return got_all_gold and self.character == 'E'
+        
+    def draw(self,windowSurface,x,y,got_all_gold=False):
         if not self.is_zapped():
             if self.character == '#':
                 windowSurface.blit(assets.tiles.dirt, (x, y))
@@ -76,6 +81,12 @@ class Tile(object):
                 windowSurface.blit(assets.tiles.stone, (x, y))
             elif self.character == '^':
                 windowSurface.blit(assets.tiles.ladder, (x, y))
+            elif self.character == '!':
+                if got_all_gold:
+                    windowSurface.blit(assets.tiles.ladder, (x, y))
+            elif self.character == 'E':
+                if got_all_gold:
+                    windowSurface.blit(assets.tiles.exit, (x, y))
         if self.is_gold:
             windowSurface.blit(assets.tiles.gold, (x, y))
         
@@ -148,7 +159,7 @@ class Level(object):
         else:
             return not self.tiles[y/TILE_SIZE+1][x/TILE_SIZE+1].is_weight_supporting()
 
-    def person_climbs(self,x,y,up=True):
+    def person_climbs(self,x,y,up=True,got_all_gold=False):
         assert(not self.person_collides(x,y))
 
         if not up and y >= TILE_SIZE * (self.height-1):
@@ -158,10 +169,10 @@ class Level(object):
         
         if x % TILE_SIZE < TILE_SIZE/2:
             return self.tiles[(y+TILE_SIZE-shift)/TILE_SIZE][x/TILE_SIZE]\
-                .is_climbable()
+                .is_climbable(got_all_gold)
         else:
             return self.tiles[(y+TILE_SIZE-shift)/TILE_SIZE][x/TILE_SIZE+1]\
-                .is_climbable()
+                .is_climbable(got_all_gold)
 
 
     def zap(self,x,y,left):
@@ -183,8 +194,9 @@ class Level(object):
         return self.tiles[yt][xt].take_gold()
         
             
-    def draw(self, windowSurface, xoff=0, yoff=0):
+    def draw(self, windowSurface, xoff=0, yoff=0, got_all_gold=False):
         for x in xrange(self.width):
             for y in xrange(self.height):
                 self.tiles[y][x].draw(windowSurface,\
-                                          x*TILE_SIZE+xoff, y*TILE_SIZE+yoff)
+                                          x*TILE_SIZE+xoff, y*TILE_SIZE+yoff,\
+                                          got_all_gold)

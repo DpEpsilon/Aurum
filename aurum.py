@@ -45,7 +45,7 @@ while True:
     p.update(l)
     
     windowSurface.fill(bgColor)
-    l.draw(windowSurface, x_corner, y_corner)
+    l.draw(windowSurface, x_corner, y_corner, p.gold == l.gold)
     p.draw(windowSurface, x_corner, y_corner)
     pygame.display.update()
 
