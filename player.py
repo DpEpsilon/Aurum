@@ -1,14 +1,6 @@
 import pygame, sys
 import assets
-
-PLAYER_SIZE = 24
-
-def snap(d):
-    if d % PLAYER_SIZE < PLAYER_SIZE/2:
-        d -= d % PLAYER_SIZE
-    else:
-        d += PLAYER_SIZE - d % PLAYER_SIZE
-    return d
+from level import snap, TILE_SIZE
 
 class Player(object):
     def __init__(self, x, y):
@@ -33,9 +25,10 @@ class Player(object):
                     level.person_collides(snap(self.x),self.y+3):
                 self.y += 3
                 self.x = snap(self.x)
+        level.take_gold(self.x, self.y)
 
     def zap(self, level, left):
-        if self.y % PLAYER_SIZE == 0 and\
+        if self.y % TILE_SIZE == 0 and\
                 not level.person_collides(snap(self.x), self.y):
             self.x = snap(self.x)
             level.zap(self.x,self.y,left)

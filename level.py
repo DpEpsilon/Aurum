@@ -12,6 +12,13 @@ EMPTY = '.'
 
 TILE_SIZE = 24
 
+def snap(d):
+    if d % TILE_SIZE < TILE_SIZE/2:
+        d -= d % TILE_SIZE
+    else:
+        d += TILE_SIZE - d % TILE_SIZE
+    return d
+
 class Tile(object):
     def __init__(self, character):
         self.zap_time = 0.0
@@ -159,7 +166,13 @@ class Level(object):
 
         if x_tile >= 0 and x_tile < self.width and y_tile < self.height:
             self.tiles[y_tile][x_tile].zap()
+
+    def take_gold(self, x, y):
+        xt = snap(x)/TILE_SIZE
+        yt = snap(y)/TILE_SIZE
+        return self.tiles[yt][xt].take_gold()
         
+            
     def draw(self, windowSurface, xoff=0, yoff=0):
         for x in xrange(self.width):
             for y in xrange(self.height):
