@@ -165,7 +165,8 @@ class Level(object):
         y_tile = y/TILE_SIZE + 1
 
         if x_tile >= 0 and x_tile < self.width and y_tile < self.height:
-            self.tiles[y_tile][x_tile].zap()
+            return self.tiles[y_tile][x_tile].zap()
+        return False
 
     def take_gold(self, x, y):
         xt = snap(x)/TILE_SIZE

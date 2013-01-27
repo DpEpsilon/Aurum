@@ -30,8 +30,8 @@ class Player(object):
     def zap(self, level, left):
         if self.y % TILE_SIZE == 0 and\
                 not level.person_collides(snap(self.x), self.y):
-            self.x = snap(self.x)
-            level.zap(self.x,self.y,left)
+            if level.zap(snap(self.x),self.y,left):
+                self.x = snap(self.x)
                 
     def update(self, level):
         if level.person_collides(self.x, self.y):
