@@ -56,6 +56,9 @@ class Tile(object):
     def is_player_start(self):
         return self.character in PLAYER_START
 
+    def is_empty(self):
+        return self.character in EMPTY
+
     def take_gold(self):
         if self.is_gold:
             self.is_gold = False
@@ -164,7 +167,9 @@ class Level(object):
         x_tile = x/TILE_SIZE + (-1 if left else 1)
         y_tile = y/TILE_SIZE + 1
 
-        if x_tile >= 0 and x_tile < self.width and y_tile < self.height:
+        if x_tile >= 0 and x_tile < self.width and y_tile < self.height and\
+                not self.person_floats(x,y) and\
+                self.tiles[y_tile-1][x_tile].is_empty():
             return self.tiles[y_tile][x_tile].zap()
         return False
 
