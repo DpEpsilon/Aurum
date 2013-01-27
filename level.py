@@ -8,6 +8,7 @@ LADDER = '^'
 WEIGHT_SUPPORTING = '#=^'
 PLAYER_START = '$'
 GOLD = 'g'
+EMPTY = '.'
 
 TILE_SIZE = 24
 
@@ -17,7 +18,7 @@ class Tile(object):
         self.is_gold = character in GOLD
         
         if character in GOLD:
-            self.character = '.'
+            self.character = EMPTY
         else:
             self.character = character
 
@@ -63,6 +64,9 @@ class Tile(object):
                 windowSurface.blit(assets.tiles.stone, (x, y))
             elif self.character == '^':
                 windowSurface.blit(assets.tiles.ladder, (x, y))
+        if self.is_gold:
+            windowSurface.blit(assets.tiles.gold, (x, y))
+        
         
 
 class Level(object):
