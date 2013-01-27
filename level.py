@@ -101,12 +101,15 @@ class Level(object):
         self.height = len(self.tiles)
         self.start_x = 0
         self.start_y = 0
-
+        self.gold = 0
+        
         for y in xrange(self.height):
             for x in xrange(self.width):
                 if self.tiles[y][x].is_player_start():
                     self.start_x = x*TILE_SIZE
                     self.start_y = y*TILE_SIZE
+                if self.tiles[y][x].is_gold:
+                    self.gold += 1
 
     def person_collides(self, x,y):
         # Boundary test

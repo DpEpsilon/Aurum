@@ -7,6 +7,7 @@ class Player(object):
         self.x = x
         self.y = y
         self.dead = False
+        self.gold = 0
 
     def move(self, level, direction):
         if direction is "l":
@@ -25,7 +26,8 @@ class Player(object):
                     level.person_collides(snap(self.x),self.y+3):
                 self.y += 3
                 self.x = snap(self.x)
-        level.take_gold(self.x, self.y)
+        if level.take_gold(self.x, self.y):
+            self.gold += 1
 
     def zap(self, level, left):
         if self.y % TILE_SIZE == 0 and\
