@@ -17,12 +17,12 @@ class Player(object):
             if not level.person_collides(self.x+3,self.y):
                 self.x += 3
         elif direction is "u":
-            if level.person_climbs(self.x,self.y) and not\
+            if level.person_climbs(self.x,self.y,True,self.gold==level.gold) and not\
                     level.person_collides(snap(self.x),self.y-3):
                 self.y -= 3
                 self.x = snap(self.x)
         elif direction is "d":
-            if level.person_climbs(self.x,self.y,False) and not\
+            if level.person_climbs(self.x,self.y,False,self.gold==level.gold) and not\
                     level.person_collides(snap(self.x),self.y+3):
                 self.y += 3
                 self.x = snap(self.x)
@@ -39,7 +39,7 @@ class Player(object):
             self.dead = True
             return
         
-        if level.person_floats(self.x, self.y):
+        if level.person_floats(self.x, self.y, self.gold==level.gold):
             if not level.person_collides(snap(self.x), self.y+3):
                 self.y += 3
                 self.x = snap(self.x)

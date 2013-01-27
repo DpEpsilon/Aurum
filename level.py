@@ -145,19 +145,21 @@ class Level(object):
         return False
     
     
-    def person_floats(self,x,y):
+    def person_floats(self,x,y,got_all_gold=False):
         assert(not self.person_collides(x,y))
         
         if y % TILE_SIZE != 0 and\
                 not self.tiles[(y+TILE_SIZE-1)/TILE_SIZE][(x+TILE_SIZE/2)/TILE_SIZE]\
-                .is_climbable():
+                .is_climbable(got_all_gold):
             return True
         if y == (self.height - 1) * TILE_SIZE:
             return False
         if x % TILE_SIZE < TILE_SIZE/2:
-            return not self.tiles[y/TILE_SIZE+1][x/TILE_SIZE].is_weight_supporting()
+            return not self.tiles[y/TILE_SIZE+1][x/TILE_SIZE]\
+                .is_weight_supporting(got_all_gold)
         else:
-            return not self.tiles[y/TILE_SIZE+1][x/TILE_SIZE+1].is_weight_supporting()
+            return not self.tiles[y/TILE_SIZE+1][x/TILE_SIZE+1]\
+                .is_weight_supporting(got_all_gold)
 
     def person_climbs(self,x,y,up=True,got_all_gold=False):
         assert(not self.person_collides(x,y))
@@ -192,7 +194,7 @@ class Level(object):
         xt = snap(x)/TILE_SIZE
         yt = snap(y)/TILE_SIZE
         return self.tiles[yt][xt].take_gold()
-        
+    
             
     def draw(self, windowSurface, xoff=0, yoff=0, got_all_gold=False):
         for x in xrange(self.width):
