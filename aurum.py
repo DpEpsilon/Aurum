@@ -22,10 +22,6 @@ y_corner = (window_height - l.height * level.TILE_SIZE)/2
 p = player.Player(l.start_x,l.start_y)
 
 while True:
-    windowSurface.fill(bgColor)
-    l.draw(windowSurface, x_corner, y_corner)
-    p.draw(windowSurface, x_corner, y_corner)
-    
     keys = pygame.key.get_pressed()
     
     for event in pygame.event.get():
@@ -47,7 +43,17 @@ while True:
         p.zap(l,False)
         
     p.update(l)
+    
+    windowSurface.fill(bgColor)
+    l.draw(windowSurface, x_corner, y_corner)
+    p.draw(windowSurface, x_corner, y_corner)
     pygame.display.update()
+
+    if p.dead:
+        print "You have died: Game Over"
+        pygame.quit()
+        sys.exit()
+    
     fpsClock.tick(30)
 #finally:
 #    # TODO: finalization stuff

@@ -36,7 +36,6 @@ class Player(object):
     
     def update(self, level):
         if level.person_collides(self.x, self.y):
-            print "HUEH, ur dead"
             self.dead = True
             return
         
@@ -46,5 +45,6 @@ class Player(object):
                 self.x = snap(self.x)
 
     def draw(self, windowSurface, xoff=0, yoff=0):
-        windowSurface.blit(assets.people.player_stand,\
-                               (self.x+xoff, self.y+yoff))
+        if not self.dead:
+            windowSurface.blit(assets.people.player_stand,\
+                                   (self.x+xoff, self.y+yoff))
