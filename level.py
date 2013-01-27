@@ -3,9 +3,9 @@ import assets
 
 ZAP_TIMEOUT = 10.0
 ZAPPABLES = '#'
-SOLIDS = '#='
+WEIGHT_SUPPORTING = '#='
 LADDER = '^'
-WEIGHT_SUPPORTING = '#=^'
+APPEARING_LADDER = '!'
 PLAYER_START = '$'
 GOLD = 'g'
 EMPTY = '.'
@@ -44,20 +44,22 @@ class Tile(object):
             time.time() < self.zap_time + ZAP_TIMEOUT
 
     def is_solid(self):
-        return self.character in SOLIDS and not self.is_zapped()
+        return self.character in WEIGHT_SUPPORTING\
+            and not self.is_zapped()
 
     def is_weight_supporting(self):
-        return self.character in WEIGHT_SUPPORTING and\
-            not self.is_zapped()
+        return (self.character in WEIGHT_SUPPORTING and\
+            not self.is_zapped()) or self.is_climbable()
 
-    def is_climbable(self):
-        return self.character in LADDER
+    def is_climbable(self, got_all_gold=False):
+        return self.character in LADDER or\
+            (got_all_gold and self.character in APPEARING_LADDER)
 
     def is_player_start(self):
         return self.character in PLAYER_START
 
     def is_empty(self):
-        return self.character in EMPTY
+        return self.character in (EMPTY + APPEARING_LADDER)
 
     def take_gold(self):
         if self.is_gold:
