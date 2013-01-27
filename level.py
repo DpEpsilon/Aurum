@@ -165,15 +165,14 @@ class Level(object):
     def zap(self,x,y,left):
         assert(not self.person_collides(x,y))
         assert(x%TILE_SIZE == 0)
-        assert(y%TILE_SIZE == 0)
         
-        x_tile = x/TILE_SIZE + (-1 if left else 1)
-        y_tile = y/TILE_SIZE + 1
+        xt = x/TILE_SIZE + (-1 if left else 1)
+        yt = y/TILE_SIZE + 1
 
-        if x_tile >= 0 and x_tile < self.width and y_tile < self.height and\
+        if xt >= 0 and xt < self.width and yt < self.height and\
                 not self.person_floats(x,y) and\
-                self.tiles[y_tile-1][x_tile].is_empty():
-            return self.tiles[y_tile][x_tile].zap()
+                self.tiles[yt-1][xt].is_empty():
+            return self.tiles[yt][xt].zap()
         return False
 
     def take_gold(self, x, y):
