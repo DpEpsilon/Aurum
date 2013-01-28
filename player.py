@@ -7,6 +7,7 @@ class Player(object):
         self.x = x
         self.y = y
         self.dead = False
+        self.winner = False
         self.gold = 0
 
     def move(self, level, direction):
@@ -37,6 +38,10 @@ class Player(object):
     def update(self, level):
         if level.person_collides(self.x, self.y):
             self.dead = True
+            return
+
+        if level.person_on_exit(self.x, self.y, self.gold==level.gold):
+            self.winner = True
             return
         
         if level.person_floats(self.x, self.y, self.gold==level.gold):

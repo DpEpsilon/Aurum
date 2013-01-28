@@ -53,6 +53,10 @@ while True:
         print "You have died: Game Over"
         pygame.quit()
         sys.exit()
+    if p.winner:
+        print "You have won!"
+        pygame.quit()
+        sys.exit()
     
     fpsClock.tick(30)
 #finally:

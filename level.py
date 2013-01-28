@@ -194,7 +194,12 @@ class Level(object):
         xt = snap(x)/TILE_SIZE
         yt = snap(y)/TILE_SIZE
         return self.tiles[yt][xt].take_gold()
-    
+
+    def person_on_exit(self, x, y, got_all_gold):
+        xt = snap(x)/TILE_SIZE
+        yt = snap(y)/TILE_SIZE
+        
+        return self.tiles[yt][xt].is_exit(got_all_gold)
             
     def draw(self, windowSurface, xoff=0, yoff=0, got_all_gold=False):
         for x in xrange(self.width):
