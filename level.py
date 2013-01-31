@@ -60,8 +60,9 @@ class Tile(object):
     def is_player_start(self):
         return self.character in PLAYER_START
 
-    def is_empty(self):
-        return self.character in (EMPTY + APPEARING_LADDER)
+    def is_empty(self, got_all_gold=False):
+        return self.character in\
+            (EMPTY + (APPEARING_LADDER if not got_all_gold else ""))
 
     def take_gold(self):
         if self.is_gold:
@@ -177,7 +178,7 @@ class Level(object):
                 .is_climbable(got_all_gold)
 
 
-    def zap(self,x,y,left):
+    def zap(self,x,y,left,got_all_gold=False):
         assert(not self.person_collides(x,y))
         assert(x%TILE_SIZE == 0)
         
@@ -186,7 +187,7 @@ class Level(object):
 
         if xt >= 0 and xt < self.width and yt < self.height and\
                 not self.person_floats(x,y) and\
-                self.tiles[yt-1][xt].is_empty():
+                self.tiles[yt-1][xt].is_empty(got_all_gold):
             return self.tiles[yt][xt].zap()
         return False
 

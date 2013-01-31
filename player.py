@@ -32,7 +32,7 @@ class Player(object):
 
     def zap(self, level, left):
         if not level.person_collides(snap(self.x), self.y) and\
-                level.zap(snap(self.x),self.y,left):
+                level.zap(snap(self.x),self.y,left,self.gold==level.gold):
             self.x = snap(self.x)
     
     def update(self, level):
