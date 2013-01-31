@@ -6,6 +6,7 @@ ZAPPABLES = '#'
 WEIGHT_SUPPORTING = '#='
 LADDER = '^'
 PLAYER_START = '$'
+GUARD_START = 'X'
 GOLD = 'g'
 EMPTY = '.'
 
@@ -62,7 +63,8 @@ class Tile(object):
 
     def is_empty(self, got_all_gold=False):
         return self.character in\
-            (EMPTY + (APPEARING_LADDER if not got_all_gold else ""))
+            (EMPTY + (APPEARING_LADDER if not got_all_gold else "") +\
+                 PLAYER_START)
 
     def take_gold(self):
         if self.is_gold:
