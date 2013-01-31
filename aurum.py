@@ -1,6 +1,6 @@
 import pygame, sys
 from pygame.locals import *
-import level, player
+import level, player, guard
 
 window_width, window_height = 640, 480
 
@@ -20,6 +20,7 @@ y_corner = (window_height - l.height * level.TILE_SIZE)/2
 
 # p stands for Peter, not player
 p = player.Player(l.start_x,l.start_y)
+guards = [guard.Guard(240,0)]
 
 while True:
     keys = pygame.key.get_pressed()
@@ -43,10 +44,14 @@ while True:
         p.zap(l,False)
         
     p.update(l)
+    for g in guards:
+        g.update(l)
     
     windowSurface.fill(bgColor)
     l.draw(windowSurface, x_corner, y_corner, p.gold == l.gold)
     p.draw(windowSurface, x_corner, y_corner)
+    for g in guards:
+        g.draw(windowSurface, x_corner, y_corner)
     pygame.display.update()
 
     if p.dead:
