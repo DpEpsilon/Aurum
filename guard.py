@@ -19,3 +19,7 @@ class Guard(Player):
         if not self.dead:
             windowSurface.blit(assets.people.guard_stand,\
                                    (self.x+xoff, self.y+yoff))
+
+    def take_gold(self, level):
+        pass # TODO: randomly take gold
+    

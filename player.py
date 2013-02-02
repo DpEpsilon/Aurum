@@ -27,9 +27,13 @@ class Player(object):
                     level.person_collides(snap(self.x),self.y+3):
                 self.y += 3
                 self.x = snap(self.x)
+        self.take_gold(level)
+        
+    def take_gold(self, level):
         if level.take_gold(self.x, self.y):
             self.gold += 1
 
+            
     def zap(self, level, left):
         if not level.person_collides(snap(self.x), self.y) and\
                 level.zap(snap(self.x),self.y,left,self.gold==level.gold):
