@@ -2,6 +2,10 @@ import pygame, sys
 import assets
 from level import snap, TILE_SIZE
 
+def collides(p1,p2):
+    return p1.x < p2.x + TILE_SIZE and p1.x > p2.x - TILE_SIZE and\
+        p1.y < p2.y + TILE_SIZE and p1.y > p2.y - TILE_SIZE
+
 class Player(object):
     def __init__(self, x, y):
         self.x = x

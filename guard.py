@@ -1,5 +1,6 @@
 import pygame, sys
 import assets
+import random
 from player import Player
 from level import snap, TILE_SIZE
 
@@ -11,6 +12,14 @@ class Guard(Player):
         raise NotImplemented("Guard cannot zap the group.")
     
     def update(self, level):
+        rand = int(random.random()*3)
+        if rand == 0:
+            self.move(level, 'l')
+        elif rand == 1:
+            self.move(level, 'u')
+        elif rand == 2:
+            self.move(level, 'r')
+        
         super(Guard, self).update(level)
         
         # TODO: pathfinding and movement

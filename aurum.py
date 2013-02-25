@@ -1,6 +1,7 @@
 import pygame, sys
 from pygame.locals import *
 import level, player, guard
+from player import collides
 
 window_width, window_height = 640, 480
 
@@ -54,6 +55,10 @@ while True:
         g.draw(windowSurface, x_corner, y_corner)
     pygame.display.update()
 
+    for g in guards:
+        if collides(p,g):
+            p.dead = True
+    
     if p.dead:
         print "You have died: Game Over"
         pygame.quit()
