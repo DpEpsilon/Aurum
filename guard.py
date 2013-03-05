@@ -30,7 +30,6 @@ class Guard(Player):
 		if search_result == "s":
 			search_result = ai_search(self.x, self.y, player.x, None,\
 								  level, player.gold==level.gold)
-		print search_result
 		self.move(level, search_result)
 		
 		super(Guard, self).update(level)
