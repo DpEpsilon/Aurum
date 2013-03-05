@@ -27,6 +27,9 @@ class Guard(Player):
 	def update(self, level, player):
 		search_result = ai_search(self.x, self.y, None, player.y,\
 								  level, player.gold==level.gold)
+		if search_result == "s":
+			search_result = ai_search(self.x, self.y, player.x, None,\
+								  level, player.gold==level.gold)
 		print search_result
 		self.move(level, search_result)
 		
