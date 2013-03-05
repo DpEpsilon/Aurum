@@ -42,7 +42,7 @@ while True:
 		
 	p.update(l)
 	for g in guards:
-		g.update(l)
+		g.update(l,p)
 	
 	windowSurface.fill(bgColor)
 	l.draw(windowSurface, x_corner, y_corner, p.gold == l.gold)
