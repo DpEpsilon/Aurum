@@ -46,13 +46,14 @@ class Tile(object):
 		return self.character in ZAPPABLES and\
 			time.time() < self.zap_time + ZAP_TIMEOUT
 
-	def is_solid(self):
+	def is_solid(self, ignore_zapping=False):
 		return self.character in WEIGHT_SUPPORTING\
-			and not self.is_zapped()
+			and (not self.is_zapped() or ignore_zapping)
 
-	def is_weight_supporting(self, got_all_gold=False):
+	def is_weight_supporting(self, got_all_gold=False, ignore_zapping=False):
 		return (self.character in WEIGHT_SUPPORTING and\
-					not self.is_zapped()) or self.is_climbable(got_all_gold)
+					(not self.is_zapped() or ignore_zapping))\
+					or self.is_climbable(got_all_gold)
 
 	def is_climbable(self, got_all_gold=False):
 		return self.character in LADDER or\
