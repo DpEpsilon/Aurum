@@ -54,13 +54,17 @@ def ai_search(x,y,x_goal,y_goal,level,got_all_gold=False):
 		tx_goal = snap(x_goal)/TILE_SIZE
 	if y_goal is not None:
 		ty_goal = (y_goal+TILE_SIZE-1)/TILE_SIZE
-	
+
+	if (tx_goal is None or tx == tx_goal) and\
+			(ty_goal is None or ty == ty_goal):
+		return "s" # you're at the goal
+		
 	if level.person_floats(x,y,got_all_gold):
 		return "s" # you're already falling, why fight it?
 	
 	if y % TILE_SIZE == 0 or not level.tiles[ty][tx].is_climbable():
 		for i in xrange(len(dx)):
-			if dd[i] != 'u':
+			if dd[i] != 'u' or level.tiles[ty][tx].is_climbable():
 				q.put((tx+dx[i],ty+dy[i],dd[i]))
 	else:
 		# ladder special case
